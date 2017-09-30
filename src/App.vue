@@ -1,12 +1,28 @@
 <template>
   <div id="app">
-    <header>
+    <v-app>
 
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <router-view></router-view>
-    </main>
+      <header>
+
+      </header>
+      <main>
+        <v-container>
+          <v-layout row>
+            <v-flex xs12>
+              <img src="./assets/minecraft-grass-block.png" alt="Soil Block" width="150px">
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12>
+              <h2 class="title-font"> MineTime</h2>
+            </v-flex>
+          </v-layout>
+
+            <router-view></router-view>
+
+        </v-container>
+      </main>
+    </v-app>
   </div>
 </template>
 
@@ -18,6 +34,11 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: minecraft-reg;
+  src: url('./assets/Minecrafter.Reg.ttf')
+}
+
 body {
   margin: 0;
 }
@@ -51,5 +72,13 @@ header span {
   font-weight: 400;
   box-sizing: border-box;
   padding-top: 16px;
+}
+
+.title-font {
+  font-family: minecraft-reg;
+  font-size: 43px;
+  color: #33606f;
+  text-shadow: 1px 4px #FF9800;
+  -webkit-text-stroke: 2px #d8bb2c;
 }
 </style>
