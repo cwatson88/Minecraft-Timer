@@ -13,7 +13,8 @@
                 </v-flex>
             </v-card-title>
             <v-card-actions>
-                <v-btn flat class="green--text">Hide</v-btn>
+                <v-btn flat class="green--text" @click="sendToDock">Dock</v-btn>
+                <v-btn flat class="red--text" @click="goToSleep">Sleep</v-btn>
             </v-card-actions>
         </v-card>
     </v-flex>
@@ -23,18 +24,6 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Vue from 'vue'
 
-// new Vue({
-//     // ...
-//     filters: {
-//         two_digits: function(value) {
-//             if (value.toString().length <= 1) {
-//                 return "0" + value.toString();
-//             }
-//             return value.toString();
-//         }
-//     }
-// })
-
 Vue.filter('two_digits', function(value) {
     if (value.toString().length <= 1) {
         return "0" + value.toString();
@@ -43,16 +32,11 @@ Vue.filter('two_digits', function(value) {
 });
 
 export default {
-    props: ['multiplier', 'title', 'cardImage'],
+    props: ['multiplier', 'title', 'cardImage', 'startTime'],
     data: () => ({
         now: '',
-        startTime: '',
         timer: 0,
-        timerType: {
-            name: "",
-            time: 72
-            // time: 300000
-        },
+        docked: false
 
     }),
     computed: {
@@ -77,27 +61,19 @@ export default {
         ...mapMutations(['..']),
         ...mapActions(['...', '..']),
         // Start method functions
-        setTime() {
-
+        sendToDock() {
+            this.$emit('dock', true)
         },
-        // startTimer() {
-        //     window.setInterval(() => {
-        //         this.now = Math.trunc((new Date()).getTime() / 1000) * 72;
-        //     }, 1000);
-        // var mcTime = time => (Math.floor((time + 300000) / 100) / 10) * 72
-
-        // }
+        goToSleep() {
+            this.$emit('resetSleep')
+        }
     },
     mounted() {
-        const vm = this;
-        this.startTime = new Date().getTime();
-
 
         window.setInterval(() => {
-            vm.now = new Date().getTime() - vm.startTime;
-            vm.timer = (vm.now * vm.multiplier);
-            vm.timer = Math.trunc((vm.now / 100) / 10 * vm.multiplier);
-            // vm.timer = Math.floor(vm.timer)
+            this.now = new Date().getTime() - this.startTime
+            this.timer = (this.now * this.multiplier)
+            this.timer = Math.trunc((this.now / 100) / 10 * this.multiplier)
         }, 1000);
     }
 }

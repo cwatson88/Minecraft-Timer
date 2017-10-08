@@ -2,9 +2,8 @@
   <div id="app">
     <v-app>
 
-      <header>
+      <!-- <header></header> -->
 
-      </header>
       <main>
         <v-container>
           <v-layout row>
@@ -18,19 +17,25 @@
             </v-flex>
           </v-layout>
 
-            <router-view></router-view>
-
+          <router-view></router-view>
         </v-container>
       </main>
+      <app-navigation-bottom></app-navigation-bottom>
     </v-app>
   </div>
 </template>
 
 <script>
+import NavigationBottom from './components/NavigationBottom.vue';
 
 export default {
   name: 'app',
-};
+  data: () => ({
+  }),
+  components: {
+    AppNavigationBottom: NavigationBottom
+  }
+}
 </script>
 
 <style>
@@ -41,6 +46,7 @@ export default {
 
 body {
   margin: 0;
+  background-color: #fafafa;
 }
 
 #app {
